@@ -1,0 +1,22 @@
+<form action="<?php echo $_SERVER['PHP_SELF']?>" method="post">
+    <table>
+        <tr>
+            <td>Password</td>
+            <td>
+                <iput  type="text" name="utente"
+                <input type="text" name="psw" >
+                <button type="submit" name="registrazione" value="registrazione">Registrazione</button>
+
+
+                "
+            </td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+<?php
+session_start();
+$_SESSION['j'] = 1;
+if (isset($_POST['registrazione']) && $_POST['registrazione'] == 'registrazione') {
+
+}
