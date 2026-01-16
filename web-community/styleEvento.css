@@ -1,0 +1,140 @@
+/* Importazione font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --p: 87 13 248;        /* Viola Primary DaisyUI */
+    --pc: 255 255 255;     /* Bianco per il testo sui bottoni */
+    --b1: 255 255 255;     /* Sfondo bianco */
+    --b2: 242 242 242;     /* Sfondo grigio chiaro */
+    --bc: 31 41 55;        /* Testo scuro */
+    --rounded-box: 1rem;
+    --rounded-btn: 0.5rem;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: rgb(var(--b2));
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    color: rgb(var(--bc));
+}
+
+/* Ripristinato il colore viola originale */
+h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: rgb(var(--p));
+}
+
+/* --- TABELLE --- */
+table {
+    width: 100%;
+    background-color: rgb(var(--b1));
+    border-collapse: collapse;
+    border-radius: var(--rounded-box);
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+table[border="1"] { border: none; }
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgb(var(--b2));
+}
+
+/* --- FORM --- */
+form {
+    background-color: rgb(var(--b1));
+    padding: 2rem;
+    border-radius: var(--rounded-box);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+form table {
+    box-shadow: none;
+    margin-bottom: 1rem;
+    border: none;
+}
+
+form td {
+    border: none;
+    padding: 0.5rem;
+}
+
+/* --- CAMPI DI INSERIMENTO DATI (Bordo Nero) --- */
+input[type="text"],
+input[type="date"] {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    /* Mantenuto il bordo nero richiesto */
+    border: 2px solid #000;
+    border-radius: var(--rounded-btn);
+    background-color: #fff;
+    color: #000;
+    font-weight: 500;
+}
+
+input:focus {
+    outline: 2px solid rgb(var(--p)); /* Outline viola al click */
+    outline-offset: 1px;
+}
+
+/* --- BOTTONI (Senza bordo nero) --- */
+button {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    height: 3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    /* Bordo rimosso */
+    border: none;
+    border-radius: var(--rounded-btn);
+    background-color: rgb(var(--p));
+    color: rgb(var(--pc));
+    transition: filter 0.2s, transform 0.1s;
+}
+
+button:hover {
+    filter: brightness(0.9);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Bottone Disconnetti */
+a[href='disconnetti.php'] button {
+    background-color: #ff5861; /* Rosso DaisyUI */
+}
+
+/* Messaggi di errore */
+p {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 1rem;
+    border-radius: var(--rounded-btn);
+}
+
+/* NUOVO: Bottone Aggiungi commento (Verde/Teal) */
+a[href='giudizio.php'] button {
+    background-color: #10b981; /* Un bel verde smeraldo */
+    margin-left: 0.5rem;       /* Un po' di spazio tra i due bottoni */
+}
+
+/* Messaggi di errore */
+p {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 1rem;
+    border-radius: var(--rounded-btn);
+}
