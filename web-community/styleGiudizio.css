@@ -1,0 +1,133 @@
+/* Importazione font moderno */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --p: 87 13 248;        /* Viola Primary */
+    --pc: 255 255 255;     /* Bianco testo */
+    --b1: 255 255 255;     /* Sfondo bianco */
+    --b2: 242 242 242;     /* Sfondo grigio chiaro */
+    --bc: 31 41 55;        /* Testo scuro */
+    --rounded-box: 1rem;
+    --rounded-btn: 0.5rem;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: rgb(var(--b2));
+    padding: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    color: rgb(var(--bc));
+}
+
+h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: rgb(var(--p));
+}
+
+/* --- TABELLE DI VISUALIZZAZIONE --- */
+table {
+    width: 100%;
+    background-color: rgb(var(--b1));
+    border-collapse: collapse;
+    border-radius: var(--rounded-box);
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+/* Rimuove il bordo brutto dell'attributo border='1' */
+table[border="1"] { border: none; }
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgb(var(--b2));
+}
+
+/* --- FORM DI INSERIMENTO --- */
+form {
+    background-color: rgb(var(--b1));
+    padding: 2.5rem;
+    border-radius: var(--rounded-box);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+form table {
+    box-shadow: none;
+    margin-bottom: 1.5rem;
+}
+
+form td {
+    border: none;
+    padding: 0.8rem 0.5rem;
+}
+
+/* --- INPUT CON BORDO NERO --- */
+input[type="text"] {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 2px solid #000; /* Bordo nero richiesto */
+    border-radius: var(--rounded-btn);
+    background-color: #fff;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+input[type="text"]:focus {
+    outline: 2px solid rgb(var(--p));
+    outline-offset: 1px;
+}
+
+/* --- STILE RADIO BUTTONS (ID EVENTO) --- */
+input[type="radio"] {
+    margin-right: 0.5rem;
+    margin-left: 1rem;
+    cursor: pointer;
+    accent-color: rgb(var(--p)); /* Colore viola per il pallino */
+    transform: scale(1.2);
+}
+
+/* --- BOTTONI --- */
+button {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    height: 3rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    border: none;
+    border-radius: var(--rounded-btn);
+    background-color: rgb(var(--p)); /* Viola per "Inserisci" */
+    color: rgb(var(--pc));
+    transition: filter 0.2s, transform 0.1s;
+    margin-right: 0.5rem;
+}
+
+button:hover {
+    filter: brightness(0.9);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Bottone Disconnetti (Rosso) */
+a[href='disconnetti.php'] button {
+    background-color: #ff5861;
+    margin-top: 1rem;
+}
+
+/* Messaggi di errore */
+p {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 1rem;
+    border-radius: var(--rounded-btn);
+    border-left: 5px solid #ef4444;
+}
