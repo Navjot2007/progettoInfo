@@ -1,0 +1,50 @@
+<?php
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=community", "root", "");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "SELECT * FROM evento ";
+    $stmt = $pdo->query($query);
+    $eventi = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM utente ";
+    $stmt = $pdo->query($query);
+    $utenti = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM categoria ";
+    $stmt = $pdo->query($query);
+    $categorie = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $query = "SELECT * FROM appartiene ";
+    $stmt = $pdo->query($query);
+    $appartieni = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $data_riferimento = new DateTime(); //data di oggi più 7 giorni
+    $data_oggi = new DateTime(); //data di oggi più 7 giorni
+    $data_riferimento->modify('+7 days'); //aggiungo 7 giorni alla data di oggi per vedere se in una settimana c'è un evento
+
+    echo "<table border='1'>";
+    echo "<tr><th>Nickname</th><th>ID Evento</th><th>Titolo</th><th>Data</th><th>Stato</th></tr>";
+
+    foreach($eventi as $evento) {
+        $data_evento = new DateTime($evento['data']);
+        $stato = "";
+
+        // Verifica se l'evento è entro i prossimi 12 giorni
+        if ($data_evento <= $data_riferimento) {
+            $stato = "Evento entro una settimana";
+        }
+        if ($data_evento <= $data_oggi) {
+            $stato = "evento già passato";
+        }
+
+        echo "<tr>";
+        echo "<td>" . $evento['nickname'] . "</td>";
+        echo "<td>" . $evento['idEvento'] . "</td>";
+        echo "<td>" . $evento['titolo'] . "</td>";
+        echo "<td>" . $evento['data'] . "</td>";
+        echo "<td>" . $stato . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+
+} catch(PDOException $e) {
+    echo "Errore: " . $e->getMessage();
+}
+?>
