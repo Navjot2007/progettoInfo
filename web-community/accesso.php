@@ -29,62 +29,64 @@ try {
 
             if (empty($_POST['nickname']) || empty($_POST['password'])) {
                 echo "<p>Completa tutti i campi!</p>";
-                exit();
-            }
+            } else {
 
-            $nickname = $_POST['nickname'];
-            $psw = $_POST['password'];
+                $nickname = $_POST['nickname'];
+                $psw = $_POST['password'];
 
-            $stmt = $pdo->query("SELECT nickname, password FROM utente");
+                $stmt = $pdo->query("SELECT nickname, password FROM utente");
 
-            foreach ($stmt as $row) {
-                if ($row['nickname'] === $nickname && $row['password'] === $psw && $autenticazione === false) {
+                foreach ($stmt as $row) {
+                    if ($row['nickname'] === $nickname && $row['password'] === $psw) {
 
-                    $_SESSION['nickname'] = $nickname;
-                    $autenticazione = true;
+                        $_SESSION['nickname'] = $nickname;
+                        $autenticazione = true;
 
-                    echo "<p>Utente trovato</p>";
+                        echo "<p>Utente trovato</p>";
+                        break;
+                    }
                 }
+
+                if (!$autenticazione) {
+                    $_SESSION['tentativi']++;
+
+
+
+                    echo "<p>Utente non trovato</p>";
+                    echo "<p>Tentativi rimanenti:". $_SESSION['tentativi']."</p>";
+                }
+
+                if ($autenticazione) {
+                    echo "<a href='aggiungiEvento.php'><button>Aggiungi evento</button></a>";
+                }
+
             }
 
-            if (!$autenticazione) {
-                $_SESSION['tentativi']++;
-
-                $tentativo = max(0, 3 - $_SESSION['tentativi']);
-
-                echo "<p>Utente non trovato</p>";
-                echo "<p>Tentativi rimanenti: $tentativo</p>";
-            }
-
-            if ($autenticazione) {
-                echo "<a href='aggiungiEvento.php'><button>Aggiungi evento</button></a>";
-            }
-
-        }
-
-    } else {
-
-        $tempoAttesa = 12;
-
-        if (!isset($_SESSION['start'])) {
-            $_SESSION['start'] = time();
-        }
-
-        $sblocco = $_SESSION['start'] + $tempoAttesa;
-
-        if (time() < $sblocco) {
-            $orario = date("H:i:s", $sblocco);
-
-            echo "<p>Hai raggiunto i tentativi massimi.</p>";
-            echo "<p>Potrai riprovare alle <strong>$orario</strong>.</p>";
         } else {
-            session_unset();
-            session_destroy();
-            echo "<p>Ora puoi riprovare.</p>";
+
+            $tempoAttesa = 12;
+
+            if (!isset($_SESSION['start'])) {
+                $_SESSION['start'] = time();
+            }
+
+            $sblocco = $_SESSION['start'] + $tempoAttesa;
+
+            if (time() < $sblocco) {
+                $orario = date("H:i:s", $sblocco);
+
+                echo "<p>Hai raggiunto i tentativi massimi.</p>";
+                echo "<p>Potrai riprovare alle <strong>$orario</strong>.</p>";
+            } else {
+                session_unset();
+                session_destroy();
+                echo "<p>Ora puoi riprovare.</p>";
+            }
         }
     }
 
-    if(isset($nickname))
+    if(isset($_POST['nickname'])) $_POST['nickname'] = "";
+    if(isset($_POST['nickname'])) $_POST['password'] = "";
 
 } catch (PDOException $e) {
     echo "Errore DB: " . $e->getMessage();

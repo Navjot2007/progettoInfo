@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['nickname'])) {
-    header("Location: access.php");
+    header("Location: accesso.php");
     exit();
 }
 $host = '127.0.0.1';
@@ -65,9 +65,24 @@ try {
         echo "<td>{$row['nickname']}</td>";
         echo "</tr>";
     }
+    echo "</table>";
 
+    echo "Evento:<br>";
+    $stmt = $pdo->query("SELECT * FROM evento");
+    echo "<table border='1'>";
+    foreach ($stmt as $row) {
+        echo "<tr>";
+        echo "<td>{$row['idEvento']}</td>";
+        echo "<td>{$row['luogo']}</td>";
+        echo "<td>{$row['data']}</td>";
+        echo "<td>{$row['titolo']}</td>";
+        echo "<td>{$row['nickname']}</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
 
-
+    echo "<a href='visualizzaCommenti.php'><button>Visualizza commenti</button></a>";
+    echo "<a href='aggiungiEvento.php'><button>Aggiungi evento</button></a>";
     echo "<a href='disconnetti.php'><button>Disconnetti</button></a>";
 
 } catch (PDOException $e) {
@@ -95,7 +110,7 @@ $pdo = null;
             <?php
             $pdo = new PDO($dsn, $user, $pass, $options);
 
-            $stmt = $pdo->query("SELECT idEvento FROM post");
+            $stmt = $pdo->query("SELECT * FROM evento");
             foreach ($stmt as $row){
                 $evento = $row['idEvento'];
                 echo "<input type='radio' id=$evento name='idEvento' value=$evento>$evento";

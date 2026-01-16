@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['nickname'])) {
+    header("Location: accesso.php");
+    exit();
+}
 $host = '127.0.0.1';
 $db   = 'community';
 $user = 'community';
@@ -45,12 +49,9 @@ try {
         header("Location: " . $_SERVER['PHP_SELF'] . "?success=1");
         exit();
 
-        if (!isset($titolo)) $titolo = "";
-        if (!isset($luogo)) $luogo = "";
-        if (!isset($data)) $data = "";
     }
 
-    echo "<h1> Aggiungi evento </h1>";
+
     echo "Evento:<br>";
     $stmt = $pdo->query("SELECT * FROM evento");
     echo "<table border='1'>";
@@ -109,6 +110,7 @@ try {
     }
     echo "</table><br>";
 
+    echo "<a href='visualizzaCommenti.php'><button>Visualizza commenti</button></a>";
     echo "<a href='disconnetti.php'><button>Disconnetti</button></a>";
     echo "<a href='giudizio.php'><button>Aggiungi commento</button></a>";
 
@@ -123,7 +125,6 @@ $pdo = null;
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="styleEvento.css">
     <title>Inserisci Evento</title>
 </head>
 <body>
@@ -145,7 +146,6 @@ $pdo = null;
             <td><input type="date" name="data"></td>
         </tr>
     </table>
-
     <button type="submit" name="azione">Inserisci</button>
 </form>
 
